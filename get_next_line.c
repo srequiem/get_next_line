@@ -6,7 +6,7 @@
 /*   By: srequiem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 18:23:31 by srequiem          #+#    #+#             */
-/*   Updated: 2018/05/01 17:10:26 by srequiem         ###   ########.fr       */
+/*   Updated: 2018/05/01 18:27:54 by srequiem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,20 @@ int			riding_zone(int fd, char **str)
 	int		bytes;
 	char	buff[BUFF_SIZE + 1];
 	char	*tmp;
-
+	
+	if (BUFF_SIZE < 1)
+		return (-1);
 	while ((bytes = read(fd, buff, BUFF_SIZE)) > 0)
 	{
 		buff[bytes] = '\0';
 		tmp = ft_strjoin(*str, buff);
-		*str = ft_strdup(tmp);
-		ft_strdel(&tmp);
+		ft_strdel(str);
+		*str = tmp;
+		//ft_strdel(&tmp);
 	}
 	if (bytes == -1)
 	{
-		free(*str);
+		//ft_strdel(str);
 		return (-1);
 	}
 	return (0);
@@ -54,9 +57,7 @@ int			get_next_line(const int fd, char **line)
 
 	i = 0;
 	if (is_valid(fd, line, &str) == -1)
-	{
 		return (-1);
-	}
 	//if (*str)
 	//	ft_strcpy(*line, str);
 	if (riding_zone(fd, &str) == -1)
@@ -99,5 +100,8 @@ int		main(int argc, char **argv)
 		printf("%s\n", line);
 		ft_strdel(&line);
 	}
+	ft_strdel(&line);
+	while (1)
+		;
 	return (0);
 }*/
