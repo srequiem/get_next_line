@@ -6,15 +6,15 @@
 /*   By: srequiem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 18:23:31 by srequiem          #+#    #+#             */
-/*   Updated: 2018/04/30 21:30:43 by macbook          ###   ########.fr       */
+/*   Updated: 2018/05/01 17:10:26 by srequiem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		is_valid(int fd, char ** line, char **str)
+int			is_valid(int fd, char ** line, char **str)
 {
-	if (fd < -1 || line == NULL)
+	if (fd < 0 || line == NULL)
 		return (-1);
 	if (!*str)
 	{
@@ -24,39 +24,52 @@ int		is_valid(int fd, char ** line, char **str)
 	return (0);
 }
 
-char		*riding_zone(int fd, char *str)
+#include <stdio.h>
+
+int			riding_zone(int fd, char **str)
 {
-	int	bytes;
+	int		bytes;
 	char	buff[BUFF_SIZE + 1];
+	char	*tmp;
 
 	while ((bytes = read(fd, buff, BUFF_SIZE)) > 0)
 	{
 		buff[bytes] = '\0';
-		str = ft_strjoin(str, buff);
+		tmp = ft_strjoin(*str, buff);
+		*str = ft_strdup(tmp);
+		ft_strdel(&tmp);
 	}
-	return (str);
+	if (bytes == -1)
+	{
+		free(*str);
+		return (-1);
+	}
+	return (0);
 }
 
-#include <stdio.h>
-int		get_next_line(const int fd, char **line)
+int			get_next_line(const int fd, char **line)
 {
 	static char	*str;
-	int		i;
+	int			i;
 
 	i = 0;
 	if (is_valid(fd, line, &str) == -1)
+	{
 		return (-1);
-	if (*str)
-		ft_strcpy(*line, str);
-	str = riding_zone(fd, str);
+	}
+	//if (*str)
+	//	ft_strcpy(*line, str);
+	if (riding_zone(fd, &str) == -1)
+		return (-1);
 	if (str[i])
 	{
 		while (str[i] != '\n' && str[i])
-		{
 			i++;
-		}
 		if (i == 0)
-			*line = ft_strdup("");
+		{
+			(*line) = ft_strdup("");
+			str = &str[i + 1];
+		}
 		else
 		{
 			(*line) = ft_strsub(str, 0, i);
@@ -65,17 +78,15 @@ int		get_next_line(const int fd, char **line)
 		return (1);
 	}
 	else
-		*line = ft_strdup("");	
+		(*line) = ft_strdup("");
 	return (0);
 }
-
+/*
 int		main(int argc, char **argv)
 {
 	int		fd;
 	char		*line;
-	int		i;
 
-	i = -1;
 	if (argc != 2)
 	{
 		ft_putstr("A Few Moments later...\n");
@@ -83,11 +94,10 @@ int		main(int argc, char **argv)
 	}
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
 		return (0);
-	while (++i < 5 )
+	while (get_next_line(fd, &line))
 	{
-		get_next_line(fd, &line);
 		printf("%s\n", line);
+		ft_strdel(&line);
 	}
-	//get_next_line(fd, &line);
 	return (0);
-}
+}*/
