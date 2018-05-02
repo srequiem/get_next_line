@@ -6,7 +6,7 @@
 /*   By: srequiem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 18:23:31 by srequiem          #+#    #+#             */
-/*   Updated: 2018/05/02 22:47:41 by srequiem         ###   ########.fr       */
+/*   Updated: 2018/05/02 23:05:44 by srequiem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,25 +70,33 @@ int			get_next_line(const int fd, char **line)
 {
 	static char	*str;
 	int			i;
-	char		*tmp;
 
 	i = 0;
-	tmp = NULL;
 	if ((is_valid(fd, line, &str) == -1) || (riding_zone(fd, &str) == -1))
 		return (-1);
 	if (str[i])
 	{
 		while (str[i] != '\n' && str[i])
 			i++;
-		(*line) = ft_strdupn(str, i);		//(*line) = ft_strsub(str, 0, i);
-		tmp = &str[i + 1];					//str = &str[i + 1];
-		ft_strcpy(str, tmp);				//ft_strcpy(str, &str[i + 1]);
+		if (i == 0) // Si premier char == \n
+		{
+			(*line) = ft_strdup("");
+			//str = &str[i + 1];
+			ft_strcpy(str, &str[i + 1]);
+		}
+		else
+		{
+			(*line) = ft_strsub(str, 0, i);
+			//str = &str[i + 1];
+			ft_strcpy(str, &str[i + 1]);
+		}
 		return (1);
 	}
 	else
 		(*line) = ft_strdup("");
 	return (0);
 }
+
 /*
 int		main(int argc, char **argv)
 {
