@@ -6,11 +6,12 @@
 /*   By: srequiem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 18:23:31 by srequiem          #+#    #+#             */
-/*   Updated: 2018/05/01 18:27:54 by srequiem         ###   ########.fr       */
+/*   Updated: 2018/05/02 19:12:04 by srequiem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int			is_valid(int fd, char ** line, char **str)
 {
@@ -23,8 +24,6 @@ int			is_valid(int fd, char ** line, char **str)
 	}
 	return (0);
 }
-
-#include <stdio.h>
 
 int			riding_zone(int fd, char **str)
 {
@@ -56,25 +55,23 @@ int			get_next_line(const int fd, char **line)
 	int			i;
 
 	i = 0;
-	if (is_valid(fd, line, &str) == -1)
-		return (-1);
-	//if (*str)
-	//	ft_strcpy(*line, str);
-	if (riding_zone(fd, &str) == -1)
+	if ((is_valid(fd, line, &str) == -1) || (riding_zone(fd, &str) == -1))
 		return (-1);
 	if (str[i])
 	{
 		while (str[i] != '\n' && str[i])
 			i++;
-		if (i == 0)
+		if (i == 0) // Si premier char == \n
 		{
 			(*line) = ft_strdup("");
-			str = &str[i + 1];
+			//str = &str[i + 1];
+			ft_strcpy(str, &str[i + 1]);
 		}
 		else
 		{
 			(*line) = ft_strsub(str, 0, i);
-			str = &str[i + 1];
+			//str = &str[i + 1];
+			ft_strcpy(str, &str[i + 1]);
 		}
 		return (1);
 	}
