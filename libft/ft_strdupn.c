@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_strdupn.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srequiem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/04 18:45:39 by srequiem          #+#    #+#             */
-/*   Updated: 2018/05/03 11:52:41 by srequiem         ###   ########.fr       */
+/*   Created: 2018/05/03 11:57:39 by srequiem          #+#    #+#             */
+/*   Updated: 2018/05/03 11:58:00 by srequiem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char const *s)
+char        *ft_strdupn(char *str, int n)
 {
-	int	i;
+	char    *res;
+	int     i;
 
 	i = 0;
-	if (!s)
-		return ;
-	while (s[i])
+	if (!(res = (char*)malloc((n + 1) * sizeof(char))))
+		return (0);
+	while (i < n)
 	{
-		ft_putchar(s[i]);
+		res[i] = str[i];
 		i++;
 	}
+	res[i] = '\0';
+	return (res);
 }

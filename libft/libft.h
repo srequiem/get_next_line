@@ -6,7 +6,7 @@
 /*   By: macbook <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 14:54:50 by macbook           #+#    #+#             */
-/*   Updated: 2018/04/10 12:15:32 by srequiem         ###   ########.fr       */
+/*   Updated: 2018/05/03 11:56:43 by srequiem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+char				*ft_strdupn(char *str, int n);
 int					ft_power(int nb, int power);
 int					ft_sqrt(int nb);
 void				ft_free2tab(int **tab, size_t x);

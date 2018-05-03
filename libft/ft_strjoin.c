@@ -6,7 +6,7 @@
 /*   By: srequiem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 12:31:10 by srequiem          #+#    #+#             */
-/*   Updated: 2018/04/20 23:54:00 by macbook          ###   ########.fr       */
+/*   Updated: 2018/05/03 11:52:06 by srequiem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	unsigned int	i;
-	char		*str;
+	char			*str;
 	unsigned int	len_tot;
 
 	if (!s1 || !s2)
