@@ -6,12 +6,13 @@
 #    By: srequiem <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 15:52:40 by srequiem          #+#    #+#              #
-#    Updated: 2018/05/03 11:57:13 by srequiem         ###   ########.fr        #
+#    Updated: 2018/05/07 19:20:14 by srequiem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 	libft.a
 SRCS =  ft_putchar.c \
+	ft_indexof.c	\
 	ft_strdupn.c	\
 	ft_power.c		\
 	ft_sqrt.c		\
