@@ -6,29 +6,13 @@
 /*   By: srequiem <srequiem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 18:23:31 by srequiem          #+#    #+#             */
-/*   Updated: 2018/05/07 22:29:45 by srequiem         ###   ########.fr       */
+/*   Updated: 2018/05/10 17:49:36 by srequiem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 #include <limits.h>
-
-char	*ft_strnjoin(const char *s1, const char *s2, size_t size)
-{
-	char	*tmp;
-	int		len;
-
-	if (!s1 || !s2)
-		return (NULL);
-	len = ft_strlen(s1) + size + 1;
-	if (!(tmp = (char *)malloc(sizeof(*tmp) * len)))
-		return (NULL);
-	ft_bzero(tmp, len);
-	ft_strcat(tmp, s1);
-	ft_strncat(tmp, s2, size);
-	return (tmp);
-}
 
 int			is_valid(int fd, char **line, char **str)
 {
@@ -48,7 +32,7 @@ int			riding_zone(int fd, char **str)
 	char	buff[BUFF_SIZE + 1];
 	char	*tmp;
 
-	if (BUFF_SIZE < 1)
+	if (BUFF_SIZE <= 0)
 		return (-1);
 	if (**str)
 		return (0);
@@ -70,7 +54,8 @@ int			get_next_line(const int fd, char **line)
 
 	i = 0;
 	tmp = NULL;
-	if ((is_valid(fd, line, &str[fd]) == -1) || (riding_zone(fd, &str[fd]) == -1))
+	if ((is_valid(fd, line, &str[fd]) == -1) ||
+		(riding_zone(fd, &str[fd]) == -1))
 		return (-1);
 	if (str[fd][i])
 	{
@@ -116,6 +101,7 @@ int		main(int argc, char **argv)
 	printf("[%d]:%s\n", ret, line);
 	ft_strdel(&line);
 	close(fd);
+
 	while ((ret = get_next_line(fd2, &line)) > 0)
 	{
 		printf("[%d]:%s\n", ret, line);
