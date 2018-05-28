@@ -6,7 +6,7 @@
 /*   By: srequiem <srequiem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 18:23:31 by srequiem          #+#    #+#             */
-/*   Updated: 2018/05/27 17:57:46 by srequiem         ###   ########.fr       */
+/*   Updated: 2018/05/28 19:10:19 by srequiem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		get_next_line(const int fd, char **line)
 {
 	static char	*str[OPEN_MAX];
 
-	if (fd < 0 || line == NULL || BUFF_SIZE < 1)
+	if (fd < 0 || line == NULL || BUFF_SIZE < 1 || fd > OPEN_MAX)
 		return (-1);
 	if (str[fd])
 	{
